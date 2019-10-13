@@ -68,10 +68,18 @@ body {
 
 .tile {
     display: block;
-    margin: 10px 15px;
+    padding: 10px 15px;
     width: 220px;
     height: 340px;
+    border-radius: 5px;
 }
+
+.tile:hover {
+    background-color: #56646a;
+    transition: background 500ms ease-out;
+}
+
+
 
 .image-tile {
     display: block;
@@ -81,6 +89,7 @@ body {
     top: 0;
     bottom: 0;
     margin: auto;
+    cursor: pointer;
 }
 
 .image-tile-helper {
@@ -97,12 +106,14 @@ body {
     font-weight: bold;
     float: left;
     display: block;
-    width: 150px;
+    max-width: 150px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
     text-align: left;
+    cursor: pointer;
 }
+
 
 .desc-tile {
     float: left;
@@ -111,6 +122,10 @@ body {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    cursor: pointer;
+}
+.desc-tile:hover, .name-tile:hover {
+    color: #c4c7ca;
 }
 
 .price-tile{
@@ -180,6 +195,7 @@ body {
     max-width: 100px;
     max-height: 100px;
     vertical-align: middle;
+    cursor: pointer;
 }
 
 .helper {
@@ -221,7 +237,17 @@ body {
     bottom: 18px;
 }
 
+.list:hover {
+    background-color: #56646a;
+    transition: background 500ms ease-out;
+}
 
+.title-list-holder:hover {
+    cursor: pointer;
+    color: #c4c7ca;
+}
+
+/* modal for adding content*/
 #modal-window {
     position: fixed;
     z-index: 20;
@@ -257,9 +283,6 @@ body {
     margin: 30px 0;
 }
 
-.modal-bottom-row {
-
-}
 
 .modal-input {
     float: right;
@@ -296,6 +319,8 @@ body {
     float: right;
 }
 
+
+/* buttons for expanding content*/
 .button-more {
     display: inline-block;
     margin: 10px auto;
@@ -308,3 +333,62 @@ body {
     text-align: center;
 }
 
+/* modal for viewing item*/
+
+#modal-window-item {
+    display: none;
+    backface-visibility: hidden;
+    position: fixed;
+    z-index: 20;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.45);
+    left: 0;
+    top: 0;
+    padding-top: 100px;
+}
+
+.modal-item-content {
+    width: 800px;
+    max-height: 600px;
+    background-color: #3e464b;
+    margin: auto;
+    backface-visibility: hidden;
+    padding: 30px;
+    position: relative;
+}
+
+.modal-item-top-row {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 150%;
+}
+
+.modal-item-middle-row{
+    font-size: 130%;
+    line-height: 40px;
+    margin: 20px 0 40px 0;
+}
+
+.modal-item--image-holder {
+    display: inline-block;
+    vertical-align: center;
+    width: 400px;
+    height: 400px;
+    position: relative;
+}
+.modal-item--image {
+    max-width: 400px;
+    max-height: 400px;
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto
+}
+
+.modal-item-add {
+    float: right;
+}

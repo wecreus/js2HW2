@@ -61,6 +61,7 @@ function appendPlants(itemsHolder, className) {
         block.classList.add(className);
         itemsHolder.appendChild(block);
 
+
         // image
         c = i;
         while (c >= plants.length) {
@@ -72,6 +73,9 @@ function appendPlants(itemsHolder, className) {
 
         let img = document.createElement("img");
         img.classList.add(`image-${className}`);
+        img.addEventListener("click", function () {
+            openModalItem(className, block);
+        });
         if (plants[c].myReader) {
             img.src = plants[c].myReader.result;
         } else {
@@ -94,11 +98,17 @@ function appendPlants(itemsHolder, className) {
         block.appendChild(titleBlock);
 
         // name
-
         let spanName = document.createElement("span");
         spanName.appendChild(document.createTextNode(plants[c].name));
         spanName.classList.add(`name-${className}`);
-        titleBlock.appendChild(spanName);
+
+        // if(className === "tile"){
+        //     spanName.addEventListener("click", function () {
+        //         openModalItem(className, block);
+        //     });
+        // }
+
+        //titleBlock.appendChild(spanName);
 
         // color choosing thingy
         let spanColor;
@@ -136,18 +146,42 @@ function appendPlants(itemsHolder, className) {
         let spanDesc = document.createElement("span");
         spanDesc.appendChild(document.createTextNode(plants[c].desc));
         spanDesc.classList.add(`desc-${className}`);
-        titleBlock.appendChild(spanDesc);
 
         // price
         let spanPrice = document.createElement("span");
         spanPrice.appendChild(document.createTextNode(plants[c].price));
         spanPrice.classList.add(`price-${className}`);
-        titleBlock.appendChild(spanPrice);
+
 
         if (className === "list" && c === 0) {
             titleBlock.appendChild(spanColor);
         }
+        if(className === "tile"){
+            spanName.addEventListener("click", function () {
+                openModalItem(className, block);
+            });
+            spanDesc.addEventListener("click", function () {
+                openModalItem(className, block);
+            });
+            titleBlock.appendChild(spanName);
+            titleBlock.appendChild(spanDesc);
+            titleBlock.appendChild(spanPrice);
+        } else {
+            let titleHolder = document.createElement("div");
+            titleHolder.addEventListener("click", function () {
+                openModalItem(className, block);
+            });
+            titleHolder.classList.add("title-list-holder");
+            titleHolder.appendChild(spanName);
+            titleHolder.appendChild(spanDesc);
+            titleHolder.appendChild(spanPrice);
+            titleBlock.appendChild(titleHolder);
+        }
+
     }
+
+    // adding opening modal for view
+
 }
 
 function changeColor(color) {
@@ -177,13 +211,12 @@ function openModal() {
     document.getElementById("enter-name").value = "";
     document.getElementById("enter-desc").value = "";
     document.getElementById("enter-price").value = "";
-    document.body.style.overflow = "hidden";
 }
 
 function closeModal() {
     let modalWindow = document.getElementById("modal-window");
     modalWindow.style.display = "none";
-    document.body.style.overflow = "auto";
+
 }
 
 function modalAdd() {
@@ -250,13 +283,29 @@ function loadMore() {
     }
 }
 
+function openModalItem(className, block) {
+    document.getElementById("modal-window-item").style.display = "block";
+
+    let nameHolder = document.getElementsByClassName("modal-item-top-row")[0];
+    nameHolder.textContent = block.getElementsByClassName(`name-${className}`)[0].textContent;
+
+    let imageHolder = document.getElementsByClassName("modal-item--image")[0];
+    imageHolder.src = block.getElementsByClassName(`image-${className}`)[0].src;
+
+
+}
+
+function closeModalItem(){
+    let modalWindow = document.getElementById("modal-window-item");
+    modalWindow.style.display = "none";
+}
 document.getElementById("view-type").addEventListener("change", changeView);
 document.getElementsByClassName("button-open-modal")[0].addEventListener("click", openModal);
 document.getElementsByClassName("modal-close")[0].addEventListener("click", closeModal);
 document.getElementsByClassName("modal-add")[0].addEventListener("click", modalAdd);
 document.getElementsByClassName("button-more")[0].addEventListener("click", loadMore);
 document.getElementById("enter-image").addEventListener("change", loadFile);
-
+document.getElementsByClassName("modal-item-close")[0].addEventListener("click", closeModalItem);
 
 window.onload = function() {
     changeView();
