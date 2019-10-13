@@ -363,7 +363,7 @@ body {
     width: 100%;
     text-align: center;
     font-weight: bold;
-    font-size: 150%;
+    font-size: 160%;
 }
 
 .modal-item-middle-row{
@@ -389,6 +389,29 @@ body {
     margin: auto
 }
 
+.modal-item--right-side {
+    vertical-align: top;
+    display: inline-block;
+    height: 400px;
+    width: 370px;
+    padding-left: 15px;
+    font-size: 110%;
+}
+
 .modal-item-add {
     float: right;
+}
+
+.modal-item--attribute {
+    display: block;
+    text-align: right;
+}
+
+.modal-item--name {
+    font-style: italic;
+    font-weight: bold;
+}
+
+.modal-item--price:before {
+    content: "$";
 }

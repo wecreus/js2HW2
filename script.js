@@ -286,8 +286,14 @@ function loadMore() {
 function openModalItem(className, block) {
     document.getElementById("modal-window-item").style.display = "block";
 
-    let nameHolder = document.getElementsByClassName("modal-item-top-row")[0];
+    let nameHolder = document.getElementsByClassName("modal-item--name")[0];
     nameHolder.textContent = block.getElementsByClassName(`name-${className}`)[0].textContent;
+
+    let descHolder = document.getElementsByClassName("modal-item--desc")[0];
+    descHolder.textContent = block.getElementsByClassName(`desc-${className}`)[0].textContent;
+
+    let priceHolder = document.getElementsByClassName("modal-item--price")[0];
+    priceHolder.textContent = block.getElementsByClassName(`price-${className}`)[0].textContent;
 
     let imageHolder = document.getElementsByClassName("modal-item--image")[0];
     imageHolder.src = block.getElementsByClassName(`image-${className}`)[0].src;
