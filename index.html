@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Riachuk Danylo">
+    <meta name="keywords" content="HTML,CSS,JavaScript">
+    <title>Riabchuk D. Homework 1</title>
+    <link rel="stylesheet" href="styles.css">
+    
+</head>
+<body>
+<script defer src="script.js"></script>
+<div class="Content-Holder">
+    <div class="button-holder">
+        <div class="left-side">
+            <label for="view-type" id="label-view-type">View style:</label>
+            <select name="view-type" id="view-type">
+                <option value="tiles">Tiles</option>
+                <option value="list">List</option>
+            </select>
+        </div>
+        <div class="right-side">
+            <div class="button" onclick="openModal()">Add Element</div>
+        </div>
+    </div>
+    <div id="Items-Holder"></div>
+    <div id="modal-window">
+        <div class="modal-content">
+            <form id="modal-form" onsubmit="return false">
+                <div class="modal-top-row">
+                    <span class="modal-desc">Add new plant to the list</span>
+                </div>
+                <div class="modal-middle-row">
+                    <label for="enter-image" class="modal-label">Upload image of a plant:</label>
+                    <input id="enter-image" class="modal-input" type="file"  onchange="loadFile()" accept="image/png, image/jpeg, image/gif" required><br>
+                    <label for="enter-name" class="modal-label">Enter name:</label>
+                    <input type="text" id="enter-name" class="modal-input" placeholder="Name"  minlength="5" required>
+                    <br>
+                    <label for="enter-desc" class="modal-label">Enter description:</label>
+                    <input type="text" id="enter-desc" class="modal-input" placeholder="Description"  minlength="7" required>
+                    <br>
+                    <label for="enter-price" class="modal-label">Enter price:</label>
+                    <input type="number" id="enter-price" class="modal-input" placeholder="Price" min="1" max="999" required >
+                    <br>
+                </div>
+                <div class="modal-bottom-row">
+                    <div class="modal-close modal-button" onclick="closeModal()">Close</div>
+                    <input type="submit" class="modal-button modal-add" onclick="modalAdd()" value="Add">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="button-more-holder">
+        <div class="button button-more" onclick="loadMore()">Load More</div>
+    </div>
+</div>
+</body>
+</html>
