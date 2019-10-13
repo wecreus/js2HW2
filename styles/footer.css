@@ -1,0 +1,76 @@
+/* footer */
+footer {
+    min-height: 74px;
+    width: 100%;
+    background: #0e1011;
+    position: absolute;
+    bottom: 0;
+    z-index: 1;
+}
+
+.footerContent {
+    font-family: ralewayregular, sans-serif;
+    max-width: 1000px;
+    margin: 0 auto;
+    font-size: 70%;
+    color: #88898d;
+    padding: 10px 10px 0 10px;
+    line-height: 1.5;
+}
+.leftSideFooter {
+    width: 65%;
+    display: inline-block;
+}
+.footerLogo {
+    float: left;
+    padding: 0 20px 10px 0;
+}
+
+.rightSide{
+    float: right;
+    font-size: 120%;
+    display: inline-block;
+    width: 20%;
+}
+.lineFooter {
+    height: 54px;
+    width: 1px;
+    border-left: 1px solid #3e3f43;
+    float:  left;
+    display: inline-block;
+    margin-right: 10px;
+}
+.twitter, .instagram {
+    height: 26px;
+    width: 26px;
+    border: 1px solid #5e5f63;
+    border-radius: 25px;
+    display: inline-block;
+    margin: 3px 10px 0 0;
+    cursor: pointer;
+}
+
+.twitter {
+    background: linear-gradient(#0e1011 0%, #0e1011 20%, #38A1F3 60%);
+    background-size:1px 400px;
+}
+
+.instagram {
+    background: linear-gradient(#0e1011 0%, #0e1011 20%, #C13584 48%, #FCAF45 54%);
+    background-size:1px 400px;
+}
+
+.instagramLogo, .twitterLogo{
+    width: 18px;
+    padding: 4px;
+}
+
+.twitter:hover, .instagram:hover, .twitter:active, .instagram:active{
+    color: white;
+    border: 1px solid white;
+    background-position: 400px;
+    transition-property: border, color, background;
+    transition-duration: 500ms;
+    transition-timing-function: ease-out;
+}
+

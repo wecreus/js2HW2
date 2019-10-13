@@ -177,11 +177,13 @@ function openModal() {
     document.getElementById("enter-name").value = "";
     document.getElementById("enter-desc").value = "";
     document.getElementById("enter-price").value = "";
+    document.body.style.overflow = "hidden";
 }
 
 function closeModal() {
     let modalWindow = document.getElementById("modal-window");
     modalWindow.style.display = "none";
+    document.body.style.overflow = "auto";
 }
 
 function modalAdd() {
@@ -192,9 +194,11 @@ function modalAdd() {
     if (!name.value || name.value.length < 5) {
         return 0;
     }
+
     if (!desc.value || desc.value.length < 7) {
         return 0;
     }
+
     if (!price2.value) {
         return 0;
     } else {
@@ -203,7 +207,9 @@ function modalAdd() {
             return 0;
         }
     }
+
     if (!file) {
+        console.log("no file");
         return 0;
     }
 
@@ -215,6 +221,7 @@ function modalAdd() {
     });
     closeModal();
     changeView();
+
 }
 
 function loadFile() {
@@ -244,6 +251,12 @@ function loadMore() {
 }
 
 document.getElementById("view-type").addEventListener("change", changeView);
+document.getElementsByClassName("button-open-modal")[0].addEventListener("click", openModal);
+document.getElementsByClassName("modal-close")[0].addEventListener("click", closeModal);
+document.getElementsByClassName("modal-add")[0].addEventListener("click", modalAdd);
+document.getElementsByClassName("button-more")[0].addEventListener("click", loadMore);
+document.getElementById("enter-image").addEventListener("change", loadFile);
+
 
 window.onload = function() {
     changeView();

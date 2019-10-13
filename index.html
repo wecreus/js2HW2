@@ -3,14 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Riachuk Danylo">
+    <meta name="author" content="Riabchuk Danylo">
     <meta name="keywords" content="HTML,CSS,JavaScript">
-    <title>Riabchuk D. Homework 1</title>
-    <link rel="stylesheet" href="styles.css">
-    
+    <title>Buy n Plant Official page</title>
+    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/footer.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
+    <link rel="shortcut icon" href="img/favicon/favicon.ico">
 </head>
 <body>
 <script defer src="script.js"></script>
+<header class="header">
+    <nav class="header--nav">
+        <img src="img/favicon/logo-small.png" alt="logo" height="50px" width="50px" class="header-logo" onclick="location.href='index.html';">
+        <div class="header-desc">Welcome to official Buy n Plant store.</div>
+        <ul class="header--ul">
+            <li class="header-link link--home" onclick="location.href='index.html';">HOME</li>
+            <li class="header-link link--bag" onclick="location.href='bag.html';">BAG</li>
+        </ul>
+    </nav>
+</header>
 <div class="Content-Holder">
     <div class="button-holder">
         <div class="left-side">
@@ -21,7 +36,7 @@
             </select>
         </div>
         <div class="right-side">
-            <div class="button" onclick="openModal()">Add Element</div>
+            <div class="button button-open-modal">Add Element</div>
         </div>
     </div>
     <div id="Items-Holder"></div>
@@ -33,7 +48,7 @@
                 </div>
                 <div class="modal-middle-row">
                     <label for="enter-image" class="modal-label">Upload image of a plant:</label>
-                    <input id="enter-image" class="modal-input" type="file"  onchange="loadFile()" accept="image/png, image/jpeg, image/gif" required><br>
+                    <input id="enter-image" class="modal-input" type="file" accept="image/png, image/jpeg, image/gif" required><br>
                     <label for="enter-name" class="modal-label">Enter name:</label>
                     <input type="text" id="enter-name" class="modal-input" placeholder="Name"  minlength="5" required>
                     <br>
@@ -45,15 +60,30 @@
                     <br>
                 </div>
                 <div class="modal-bottom-row">
-                    <div class="modal-close modal-button" onclick="closeModal()">Close</div>
-                    <input type="submit" class="modal-button modal-add" onclick="modalAdd()" value="Add">
+                    <div class="modal-close modal-button">Close</div>
+                    <input type="submit" class="modal-button modal-add" value="Add">
                 </div>
             </form>
         </div>
     </div>
     <div class="button-more-holder">
-        <div class="button button-more" onclick="loadMore()">Load More</div>
+        <div class="button button-more">Show More</div>
     </div>
 </div>
+<footer>
+    <div class="footerContent">
+        <div class="leftSideFooter">
+            <img src="img/favicon/logo-small.png" alt="logo" height="54px" width="54px" class="footerLogo">
+            This mock-up was created only for studying purposes. <br>
+            Buy n Plant is fictional store created by an authors fantasy.<br>
+            All resemblance with real world is purely coincidental.
+        </div>
+        <div class="rightSide">
+            <div class="lineFooter"></div>
+            Danylo Riabchuk 2019<br>
+            <div class="twitter" onclick="window.open('https://twitter.com/wecreus', '_blank');"><img src="img/social/twitter.png" alt="twitter" class="twitterLogo"></div>
+            <div class="instagram" onclick="window.open('https://www.instagram.com/wecreus/', '_blank');"><img src="img/social/instagram.png" alt="instagram" class="instagramLogo"></div></div>
+    </div>
+</footer>
 </body>
 </html>
