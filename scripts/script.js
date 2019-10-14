@@ -44,8 +44,31 @@ let plants;
 let price = 0;
 let bagList = [];
 let currentOpenedId = "none";
+let className = "tile";
 
-document.getElementById("view-type").addEventListener("change", sort);
+document.getElementsByClassName("view-tiles")[0].addEventListener("click", function () {
+        if(className !== "tile"){
+            className = "tile";
+            let temp =  document.getElementsByClassName("view-list")[0];
+            temp.classList.remove("selected-selector");
+            let temp2 = document.getElementsByClassName("view-tiles")[0];
+            temp2.classList.add("selected-selector");
+            sort();
+        }
+});
+
+document.getElementsByClassName("view-list")[0].addEventListener("click", function () {
+    if(className !== "list"){
+        className = "list";
+        let temp =  document.getElementsByClassName("view-tiles")[0];
+        temp.classList.remove("selected-selector");
+        let temp2 = document.getElementsByClassName("view-list")[0];
+        temp2.classList.add("selected-selector");
+        sort();
+    }
+});
+
+
 document.getElementsByClassName("button-open-modal")[0].addEventListener("click", openModal);
 document.getElementsByClassName("modal-close")[0].addEventListener("click", closeModal);
 document.getElementsByClassName("modal-add")[0].addEventListener("click", modalAdd);
@@ -83,14 +106,10 @@ function changeView() {
     itemsHolder.classList.remove("items-holder-tile");
     itemsHolder.classList.remove("items-holder-list");
 
-    if (document.getElementById("view-type").value === "tiles") {
-        appendPlants(itemsHolder, "tile");
-    } else {
-        appendPlants(itemsHolder, "list");
-    }
+    appendPlants(itemsHolder);
 }
 
-function appendPlants(itemsHolder, className) {
+function appendPlants(itemsHolder) {
     let c = 0;
     itemsHolder.classList.add(`items-holder-${className}`);
 
