@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Riabchuk Danylo">
+    <meta name="keywords" content="HTML,CSS,JavaScript">
+    <title>Buy n Plant Official page</title>
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/footer.css">
+    <link rel="stylesheet" href="styles/bag.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
+    <link rel="shortcut icon" href="img/favicon/favicon.ico">
+</head>
+<body>
+<script defer src="scripts/bag.js"></script>
+<header class="header">
+    <nav class="header--nav">
+        <img src="img/favicon/logo-small.png" alt="logo" height="50px" width="50px" class="header-logo" onclick="location.href='index.html';">
+        <div class="header-desc">Welcome to official Buy n Plant store.</div>
+        <ul class="header--ul">
+            <li class="header-link link--home" onclick="location.href='index.html';">HOME</li>
+            <li class="header-link link--bag" onclick="location.href='bag.html';">BAG<div class="header-link-bag">0</div></li>
+        </ul>
+    </nav>
+</header>
+<div class="Content-Holder">
+    <div class="plants-list"></div>
+<div class="button-row">
+    <div class="button-disabled button-clear">Clear bag</div>
+    <div class="button-disabled button-buy">Check out</div>
+</div>
+</div>
+<footer>
+    <div class="footerContent">
+        <div class="leftSideFooter">
+            <img src="img/favicon/logo-small.png" alt="logo" height="54px" width="54px" class="footerLogo">
+            This mock-up was created only for studying purposes. <br>
+            Buy n Plant is fictional store created by an authors fantasy.<br>
+            All resemblance with real world is purely coincidental.
+        </div>
+        <div class="rightSide">
+            <div class="lineFooter"></div>
+            Danylo Riabchuk 2019<br>
+            <div class="twitter" onclick="window.open('https://twitter.com/wecreus', '_blank');"><img src="img/social/twitter.png" alt="twitter" class="twitterLogo"></div>
+            <div class="instagram" onclick="window.open('https://www.instagram.com/wecreus/', '_blank');"><img src="img/social/instagram.png" alt="instagram" class="instagramLogo"></div></div>
+    </div>
+</footer>
+</body>
+</html>

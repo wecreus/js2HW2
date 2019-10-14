@@ -1,0 +1,147 @@
+body {
+    font-family: Helvetica, sans-serif;
+    margin: 0;
+    background-color: #23272a;
+    color: white;
+    position: relative;
+    min-height: 100vh;
+    min-width: 550px;
+}
+
+.Content-Holder {
+    max-width: 1000px;
+    margin: auto;
+    padding: 70px 15px 80px 15px;
+    background: #3e464b;
+    min-height: 80vh;
+}
+
+/* buttons */
+.button-row {
+    margin: 15px 0;
+}
+.button {
+    display: inline-block;
+    color: rgba(255, 255, 255, 0.8);
+    padding: 1px 15px;
+    border: 2px solid #666e75;
+    border-radius: 20px;
+    background: linear-gradient(#4E555C 0%, #4E555C 20%, rgb(42, 171, 178) 60%);
+    background-size: 1px 400px;
+    cursor: pointer;
+    font-size: 120%;
+    user-select: none;
+}
+.button-disabled {
+    display: inline-block;
+    color: rgba(190, 190, 190, 0.8);
+    padding: 1px 15px;
+    border: 2px solid #666e75;
+    border-radius: 20px;
+    background: linear-gradient(#4E555C 0%, #4E555C 20%, rgb(42, 171, 178) 60%);
+    background-size: 1px 400px;
+    font-size: 120%;
+    opacity: 0.7;
+    user-select: none;
+}
+.button:hover {
+    color: white;
+    border: 2px solid white;
+    background-position: 400px;
+    transition-property: border, color, background;
+    transition-duration: 500ms;
+    transition-timing-function: ease-out;
+    user-select: none;
+}
+.button-buy {
+    float: right;
+}
+
+/* empty bag */
+.empty-bag {
+    width: 100%;
+    text-align: center;
+    font-size: 150%;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+
+/* listing */
+.list {
+    display: block;
+    margin: 15px 0;
+    width: auto;
+    height: 100px;
+}
+
+.image-list-helper {
+    display: inline-block;
+    height: 100px;
+    width: 120px;
+}
+
+.image-list {
+    max-width: 100px;
+    max-height: 100px;
+    vertical-align: middle;
+
+}
+
+.helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.title-list {
+    display: inline-block;
+    font-size: 140%;
+    height: 65px;
+    position: relative;
+    width: 845px;
+}
+
+.title-list-holder {
+    width: 100%;
+}
+
+.name-list {
+    font-style: italic;
+    margin-left: 2px;
+}
+.name-list:after {
+    content: ", ";
+}
+
+.desc-list:after {
+    content: ", ";
+}
+
+.price-list{
+    font-weight: bold;
+}
+
+.price-list:before{
+    content: "$";
+}
+
+.color-list {
+    position: absolute;
+    display: block;
+    bottom: 18px;
+}
+
+.list:hover {
+    background-color: #56646a;
+    transition: background 500ms ease-out;
+}
+
+.total-price {
+    width: 100%;
+    text-align: right;
+    font-size: 150%;
+    font-weight: bold;
+}
+
+
