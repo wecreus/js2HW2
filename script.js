@@ -1,6 +1,4 @@
 function changeView() {
-
-
     if(localStorage.getItem("sPlants")){
         if(plants){
             if(plants.length > JSON.parse(localStorage.getItem("sPlants")).length){
@@ -169,10 +167,12 @@ function changeColor(color, modalColor) {
     let children = parent.children;
     for (let i = 0; i < children.length; i++) {
         children[i].classList.remove("selected");
+        children[i].classList.remove("selected-modal");
     }
-    this.classList.add("selected");
+
     let imageElement;
     if(!modalColor){
+        this.classList.add("selected");
         let parentOfParentOfParent = this.parentElement.parentElement.parentElement;
         if (parentOfParentOfParent.classList.contains("list")) {
             imageElement = parentOfParentOfParent.getElementsByClassName("image-list");
@@ -180,6 +180,7 @@ function changeColor(color, modalColor) {
             imageElement = parentOfParentOfParent.getElementsByClassName("image-tile");
         }
     } else {
+        this.classList.add("selected-modal");
         imageElement = document.getElementsByClassName("modal-item--image");
     }
 
@@ -219,7 +220,7 @@ function modalAdd() {
         return 0;
     } else {
         price = Number(price2.value);
-        if (price < 1 || price > 999) {
+        if (price < 1 || price > 999 || price % 1 !== 0) {
             return 0;
         }
     }
@@ -310,13 +311,13 @@ function openModalItem(className, block, id, colorHolder) {
             changeColor.call(yellowColor, "yellow", true);
         });
         spanColor.appendChild(yellowColor);
-        document.getElementsByClassName("modal-item-price-row")[0].appendChild(spanColor);
+        document.getElementsByClassName("modal-item--right-side")[0].appendChild(spanColor);
         if(colorHolder === "red") {
-            redColor.classList.add("selected");
+            redColor.classList.add("selected-modal");
         } else if(colorHolder === "green"){
-            greenColor.classList.add("selected");
+            greenColor.classList.add("selected-modal");
         } else if(colorHolder === "yellow"){
-            yellowColor.classList.add("selected");
+            yellowColor.classList.add("selected-modal");
         }
     }
 
@@ -326,6 +327,9 @@ function openModalItem(className, block, id, colorHolder) {
 function closeModalItem(){
     let modalWindow = document.getElementById("modal-window-item");
     modalWindow.style.display = "none";
+    price = 0;
+
+    document.getElementsByClassName("modal-item-quantity-input")[0].value = 1;
 }
 
 let defaultPlants = [
@@ -371,6 +375,7 @@ let reader;
 let file; // variable for image
 let quantity = 7;
 let plants;
+let price = 0;
 
 
 document.getElementById("view-type").addEventListener("change", changeView);
@@ -380,6 +385,17 @@ document.getElementsByClassName("modal-add")[0].addEventListener("click", modalA
 document.getElementsByClassName("button-more")[0].addEventListener("click", loadMore);
 document.getElementById("enter-image").addEventListener("change", loadFile);
 document.getElementsByClassName("modal-item-close")[0].addEventListener("click", closeModalItem);
+document.getElementsByClassName("modal-item-quantity-input")[0].addEventListener("change", function() {
+   if(price === 0){
+       price = document.getElementsByClassName("modal-item--price")[0].textContent;
+       price = price.replace("$", "");
+       price = parseInt(price, 10);
+   }
+   if(this.value % 1 === 0) {
+       document.getElementsByClassName("modal-item--price")[0].textContent = "" + price * this.value;
+   }
+});
+
 
 window.onload = function() {
     changeView();

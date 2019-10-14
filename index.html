@@ -41,7 +41,7 @@
     </div>
     <div id="Items-Holder"></div>
     <div id="modal-window-item">
-        <div class="modal-item-content">
+        <form class="modal-item-content" onsubmit="return false">
             <div class="modal-item-top-row">Plant from Big n Plant</div>
             <div class="modal-item-middle-row">
                 <div class="modal-item--image-holder">
@@ -53,12 +53,17 @@
                     <span class="modal-item--desc modal-item--attribute"></span>
                 </div>
             </div>
-            <div class="modal-item-price-row"><span class="modal-item--price modal-item--attribute"></span></div>
+            <div class="modal-item-price-row"
+            ><div class="modal-item--quantity">
+                    <label for="quantity" class="modal-item-quantity-label">Quantity: </label>
+                    <input type="number" class="modal-item-quantity-input" min="1" max="15" id="quantity" value="1" required>
+                </div
+                ><span class="modal-item--price modal-item--attribute"></span></div>
             <div class="modal-item-bottom-row">
                 <div class="modal-item-close modal-button">Close</div>
-                <div class="modal-button modal-item-add">Add to bag</div>
+                <input type="submit" class="modal-button modal-item-add" value="Add to bag">
             </div>
-        </div>
+        </form>
     </div>
     <div id="modal-window">
         <div class="modal-content">

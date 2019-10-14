@@ -405,7 +405,17 @@ body {
     width: 100%;
     margin: 10px 0 20px 0;
 }
+.modal-item--quantity{
+    width: 30%;
+    display: inline-block;
+    font-size: 110%;
+}
 
+.modal-item-quantity-input {
+    width: 40px;
+    margin-left: 20px;
+    font-size: 110%;
+}
 .modal-item-add {
     float: right;
 }
@@ -423,10 +433,12 @@ body {
 
 .modal-item--price {
     font-weight: bolder;
-    font-size: 170%;
-    width: 80%;
+    width: 70%;
     display: inline-block;
+    font-size: 170%;
 }
+
+
 
 .modal-item--price:before {
     content: "$";
@@ -434,9 +446,9 @@ body {
 }
 
 .color-modal {
-    width: 20%;
-    display: inline-block;
-    float: left;
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
 
 .color-circle-modal {
@@ -450,5 +462,9 @@ body {
 }
 
 .color-circle-modal:hover {
+    border: 3px rgba(251, 244, 255, 0.73) solid;
+}
+
+.selected-modal {
     border: 3px rgba(251, 244, 255, 0.73) solid;
 }
