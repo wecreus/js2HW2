@@ -56,7 +56,7 @@ function appendPlants(itemsHolder, className) {
         if (plants[c].myReader) {
             img.src = plants[c].myReader;
         } else {
-            if (c === 0) {
+            if (plants[c].colorChange) {
                 img.src = "img/colors/lulred.jpg";
             } else {
                 img.src = "img/plant" + c + ".jpg";
@@ -83,7 +83,7 @@ function appendPlants(itemsHolder, className) {
         // color choosing thingy
         let spanColor;
         let colorHolder; // used for storing color for the modalItem
-        if (c === 0) {
+        if (plants[c].colorChange) {
             spanColor = document.createElement("span");
             spanColor.classList.add(`color-${className}`);
             let redColor = document.createElement("div");
@@ -129,7 +129,7 @@ function appendPlants(itemsHolder, className) {
 
         let id = plants[c].id;
 
-        if (className === "list" && c === 0) {
+        if (className === "list" && plants[c].colorChange) {
             titleBlock.appendChild(spanColor);
         }
         if(className === "tile"){
@@ -287,31 +287,30 @@ function openModalItem(className, block, id, colorHolder) {
 
     if(plants[id].colorChange){
         let spanColor;
-        let block = document.getElementsByClassName("modal-item--right-side")[0];
         spanColor = document.createElement("span");
         spanColor.classList.add("color-modal");
         let redColor = document.createElement("div");
         redColor.classList.add("color-red");
-        redColor.classList.add("color-circle");
+        redColor.classList.add("color-circle-modal");
         redColor.addEventListener("click", function() {
             changeColor.call(redColor, "red", true);
         });
         spanColor.appendChild(redColor);
         let greenColor = document.createElement("div");
         greenColor.classList.add("color-green");
-        greenColor.classList.add("color-circle");
+        greenColor.classList.add("color-circle-modal");
         greenColor.addEventListener("click", function() {
             changeColor.call(greenColor, "green", true);
         });
         spanColor.appendChild(greenColor);
         let yellowColor = document.createElement("div");
         yellowColor.classList.add("color-yellow");
-        yellowColor.classList.add("color-circle");
+        yellowColor.classList.add("color-circle-modal");
         yellowColor.addEventListener("click", function() {
             changeColor.call(yellowColor, "yellow", true);
         });
         spanColor.appendChild(yellowColor);
-        block.appendChild(spanColor);
+        document.getElementsByClassName("modal-item-price-row")[0].appendChild(spanColor);
         if(colorHolder === "red") {
             redColor.classList.add("selected");
         } else if(colorHolder === "green"){

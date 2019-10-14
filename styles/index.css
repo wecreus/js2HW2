@@ -370,7 +370,8 @@ body {
 .modal-item-middle-row{
     font-size: 130%;
     line-height: 40px;
-    margin: 20px 0 40px 0;
+    margin: 20px 0 0 0;
+    width: 100%;
 }
 
 .modal-item--image-holder {
@@ -397,6 +398,12 @@ body {
     width: 370px;
     padding-left: 15px;
     font-size: 110%;
+    position: relative;
+}
+
+.modal-item-price-row{
+    width: 100%;
+    margin: 10px 0 20px 0;
 }
 
 .modal-item-add {
@@ -406,6 +413,7 @@ body {
 .modal-item--attribute {
     display: block;
     text-align: right;
+    width: 100%;
 }
 
 .modal-item--name {
@@ -413,6 +421,34 @@ body {
     font-weight: bold;
 }
 
+.modal-item--price {
+    font-weight: bolder;
+    font-size: 170%;
+    width: 80%;
+    display: inline-block;
+}
+
 .modal-item--price:before {
     content: "$";
+
+}
+
+.color-modal {
+    width: 20%;
+    display: inline-block;
+    float: left;
+}
+
+.color-circle-modal {
+    border-radius: 25px;
+    height: 20px;
+    width: 20px;
+    border: 3px rgba(251, 244, 255, 0.23) solid;
+    margin: 0 2px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.color-circle-modal:hover {
+    border: 3px rgba(251, 244, 255, 0.73) solid;
 }
