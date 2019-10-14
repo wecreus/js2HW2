@@ -9,6 +9,7 @@
     padding: 0;
     box-shadow: 0 0 22px 0 rgba(0, 0, 0, 0.31);
     z-index: 5;
+    min-width: 550px;
 }
 
 .header--nav {

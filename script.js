@@ -1,47 +1,20 @@
-let plants = [
-    {
-        id: 0,
-        name: "Aloe Vera",
-        desc: "In Mini Dolores Planter",
-        price: 80,
-        colorChange: true
-    },
-    {
-        id: 1,
-        name: "Air Plant",
-        desc: "In Tillinadz Stand Planter",
-        price: 75
-    },
-    {
-        id: 2,
-        name: "Aloe Plant Trio",
-        desc: "In Mini Dolores Planter",
-        price: 50
-    },
-    {
-        id: 3,
-        name: "Aloe Vera",
-        desc: "In Big Dolores Planter",
-        price: 78
-    },
-    {
-        id: 4,
-        name: "Aloe Vera",
-        desc: "In Mini Quirk Planter",
-        price: 59
-    },
-    {
-        id: 5,
-        name: "Air Plant Trio",
-        desc: "In Mini Dolores Planter",
-        price: 90
-    }
-];
-let reader;
-let file; // variable for image
-let quantity = 7;
-
 function changeView() {
+
+
+    if(localStorage.getItem("sPlants")){
+        if(plants){
+            if(plants.length > JSON.parse(localStorage.getItem("sPlants")).length){
+                localStorage.setItem("sPlants", JSON.stringify(plants));
+            }
+        } else {
+            plants = JSON.parse(localStorage.getItem("sPlants"));
+        }
+    } else {
+        plants = defaultPlants;
+        localStorage.setItem("sPlants", JSON.stringify(plants));
+    }
+
+
     let itemsHolder = document.getElementById("Items-Holder");
 
     //clearing the div
@@ -81,7 +54,7 @@ function appendPlants(itemsHolder, className) {
         let img = document.createElement("img");
         img.classList.add(`image-${className}`);
         if (plants[c].myReader) {
-            img.src = plants[c].myReader.result;
+            img.src = plants[c].myReader;
         } else {
             if (c === 0) {
                 img.src = "img/colors/lulred.jpg";
@@ -252,7 +225,6 @@ function modalAdd() {
     }
 
     if (!file) {
-        console.log("no file");
         return 0;
     }
 
@@ -261,11 +233,10 @@ function modalAdd() {
         name: name.value,
         desc: desc.value,
         price: price,
-        myReader: reader
+        myReader: reader.result
     });
     closeModal();
     changeView();
-    console.log(plants);
 
 }
 
@@ -357,6 +328,52 @@ function closeModalItem(){
     let modalWindow = document.getElementById("modal-window-item");
     modalWindow.style.display = "none";
 }
+
+let defaultPlants = [
+    {
+        id: 0,
+        name: "Aloe Vera",
+        desc: "In Mini Dolores Planter",
+        price: 80,
+        colorChange: true
+    },
+    {
+        id: 1,
+        name: "Air Plant",
+        desc: "In Tillinadz Stand Planter",
+        price: 75
+    },
+    {
+        id: 2,
+        name: "Aloe Plant Trio",
+        desc: "In Mini Dolores Planter",
+        price: 50
+    },
+    {
+        id: 3,
+        name: "Aloe Vera",
+        desc: "In Big Dolores Planter",
+        price: 78
+    },
+    {
+        id: 4,
+        name: "Aloe Vera",
+        desc: "In Mini Quirk Planter",
+        price: 59
+    },
+    {
+        id: 5,
+        name: "Air Plant Trio",
+        desc: "In Mini Dolores Planter",
+        price: 90
+    }
+];
+let reader;
+let file; // variable for image
+let quantity = 7;
+let plants;
+
+
 document.getElementById("view-type").addEventListener("change", changeView);
 document.getElementsByClassName("button-open-modal")[0].addEventListener("click", openModal);
 document.getElementsByClassName("modal-close")[0].addEventListener("click", closeModal);
@@ -364,10 +381,6 @@ document.getElementsByClassName("modal-add")[0].addEventListener("click", modalA
 document.getElementsByClassName("button-more")[0].addEventListener("click", loadMore);
 document.getElementById("enter-image").addEventListener("change", loadFile);
 document.getElementsByClassName("modal-item-close")[0].addEventListener("click", closeModalItem);
-
-
-
-
 
 window.onload = function() {
     changeView();

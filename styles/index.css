@@ -5,6 +5,7 @@ body {
     color: white;
     position: relative;
     min-height: 100vh;
+    min-width: 550px;
 }
 
 .Content-Holder {
