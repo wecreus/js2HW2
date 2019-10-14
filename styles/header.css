@@ -25,6 +25,7 @@
     padding: 0;
 }
 .header-link {
+    position: relative;
     box-sizing: border-box;
     width: auto;
     display: inline-block;
@@ -64,4 +65,22 @@
     line-height: 60px;
     height: inherit;
     margin-left: 10px;
+}
+
+.link--bag {
+    padding-right: 38px;
+}
+
+.header-link-bag {
+    font-size: 90%;
+    display: inline-block;
+    position: absolute;
+    right: 3px;
+    top: 3px;
+    width: 30px;
+    color: #4e555c;
+    line-height: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 20px;
 }

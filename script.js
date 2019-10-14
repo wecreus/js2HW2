@@ -1,3 +1,75 @@
+let defaultPlants = [
+    {
+        id: 0,
+        name: "Aloe Vera",
+        desc: "In Mini Dolores Planter",
+        price: 80,
+        colorChange: true
+    },
+    {
+        id: 1,
+        name: "Air Plant",
+        desc: "In Tillinadz Stand Planter",
+        price: 75
+    },
+    {
+        id: 2,
+        name: "Aloe Plant Trio",
+        desc: "In Mini Dolores Planter",
+        price: 50
+    },
+    {
+        id: 3,
+        name: "Aloe Vera",
+        desc: "In Big Dolores Planter",
+        price: 78
+    },
+    {
+        id: 4,
+        name: "Aloe Vera",
+        desc: "In Mini Quirk Planter",
+        price: 59
+    },
+    {
+        id: 5,
+        name: "Air Plant Trio",
+        desc: "In Mini Dolores Planter",
+        price: 90
+    }
+];
+let reader;
+let file; // variable for image
+let quantity = 7;
+let plants;
+let price = 0;
+let bagList = [];
+let currentOpenedId = "none";
+
+document.getElementById("view-type").addEventListener("change", sort);
+document.getElementsByClassName("button-open-modal")[0].addEventListener("click", openModal);
+document.getElementsByClassName("modal-close")[0].addEventListener("click", closeModal);
+document.getElementsByClassName("modal-add")[0].addEventListener("click", modalAdd);
+document.getElementsByClassName("button-more")[0].addEventListener("click", loadMore);
+document.getElementById("enter-image").addEventListener("change", loadFile);
+document.getElementsByClassName("modal-item-close")[0].addEventListener("click", closeModalItem);
+document.getElementsByClassName("modal-item-quantity-input")[0].addEventListener("change", function() {
+    if(price === 0){
+        price = document.getElementsByClassName("modal-item--price")[0].textContent;
+        price = price.replace("$", "");
+        price = parseInt(price, 10);
+    }
+    if(this.value % 1 === 0) {
+        document.getElementsByClassName("modal-item--price")[0].textContent = "" + price * this.value;
+    }
+});
+document.getElementsByClassName("sort-type")[0].addEventListener("change", sort);
+document.getElementsByClassName("modal-item-add")[0].addEventListener("click", addToBag);
+
+window.onload = function() {
+    sort();
+};
+
+
 function changeView() {
 
 
@@ -147,8 +219,6 @@ function appendPlants(itemsHolder, className) {
 
     }
 
-    // adding opening modal for view
-
 }
 
 function changeColor(color, modalColor) {
@@ -219,7 +289,7 @@ function modalAdd() {
     }
 
     plants.push({
-        id: plants[plants.length - 1].id + 1,
+        id: plants.length,
         name: name.value,
         desc: desc.value,
         price: price,
@@ -258,7 +328,7 @@ function loadMore() {
 
 function openModalItem(className, block, id, colorHolder) {
     document.getElementById("modal-window-item").style.display = "block";
-
+    currentOpenedId = id;
     let nameHolder = document.getElementsByClassName("modal-item--name")[0];
     nameHolder.textContent = block.getElementsByClassName(`name-${className}`)[0].textContent;
 
@@ -368,75 +438,61 @@ function sort(){
             return 0;
         });
     }
+    updateBag();
     changeView();
 }
 
-let defaultPlants = [
-    {
-        id: 0,
-        name: "Aloe Vera",
-        desc: "In Mini Dolores Planter",
-        price: 80,
-        colorChange: true
-    },
-    {
-        id: 1,
-        name: "Air Plant",
-        desc: "In Tillinadz Stand Planter",
-        price: 75
-    },
-    {
-        id: 2,
-        name: "Aloe Plant Trio",
-        desc: "In Mini Dolores Planter",
-        price: 50
-    },
-    {
-        id: 3,
-        name: "Aloe Vera",
-        desc: "In Big Dolores Planter",
-        price: 78
-    },
-    {
-        id: 4,
-        name: "Aloe Vera",
-        desc: "In Mini Quirk Planter",
-        price: 59
-    },
-    {
-        id: 5,
-        name: "Air Plant Trio",
-        desc: "In Mini Dolores Planter",
-        price: 90
+function addToBag() {
+    let theValue = document.getElementsByClassName("modal-item-quantity-input")[0].value;
+    let color = "default";
+    if(!theValue){
+        return 0;
     }
-];
-let reader;
-let file; // variable for image
-let quantity = 7;
-let plants;
-let price = 0;
+
+    if(theValue < 1){
+        return 0;
+    }
+
+    if(theValue % 1 !== 0) {
+        return 0;
+    }
+
+    for(let i = 0; i < plants.length; i++){
+        if(currentOpenedId === plants[i].id && plants[i].colorChange){
+            let temp = document.getElementsByClassName("selected-modal")[0];
+            if(temp.classList.contains("color-red")){
+                color = "red";
+            } else if(temp.classList.contains("color-green")){
+                color = "green";
+            } else {
+                color = "yellow";
+            }
+        }
+    }
 
 
-document.getElementById("view-type").addEventListener("change", sort);
-document.getElementsByClassName("button-open-modal")[0].addEventListener("click", openModal);
-document.getElementsByClassName("modal-close")[0].addEventListener("click", closeModal);
-document.getElementsByClassName("modal-add")[0].addEventListener("click", modalAdd);
-document.getElementsByClassName("button-more")[0].addEventListener("click", loadMore);
-document.getElementById("enter-image").addEventListener("change", loadFile);
-document.getElementsByClassName("modal-item-close")[0].addEventListener("click", closeModalItem);
-document.getElementsByClassName("modal-item-quantity-input")[0].addEventListener("change", function() {
-   if(price === 0){
-       price = document.getElementsByClassName("modal-item--price")[0].textContent;
-       price = price.replace("$", "");
-       price = parseInt(price, 10);
-   }
-   if(this.value % 1 === 0) {
-       document.getElementsByClassName("modal-item--price")[0].textContent = "" + price * this.value;
-   }
-});
-document.getElementsByClassName("sort-type")[0].addEventListener("change", sort);
+    if(localStorage.getItem("sBagList")){
+        bagList = JSON.parse(localStorage.getItem("sBagList"));
+    }
+    bagList.push({
+        idOfItem: currentOpenedId,
+        quantity: theValue,
+        color: color
+    });
+    localStorage.setItem("sBagList", JSON.stringify(bagList));
+    updateBag();
 
+    closeModalItem();
+}
 
-window.onload = function() {
-    sort();
-};
+function updateBag(){
+    let temp = 0;
+    if(localStorage.getItem("sBagList")){
+        let anotherTemp = JSON.parse(localStorage.getItem("sBagList"));
+        for(let i = 0; i < anotherTemp.length; i++){
+            temp += Number(anotherTemp[i].quantity);
+        }
+    }
+
+    document.getElementsByClassName("header-link-bag")[0].textContent = temp + "";
+}
