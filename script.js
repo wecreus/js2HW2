@@ -1,30 +1,37 @@
 let plants = [
     {
+        id: 0,
         name: "Aloe Vera",
         desc: "In Mini Dolores Planter",
-        price: 80
+        price: 80,
+        colorChange: true
     },
     {
+        id: 1,
         name: "Air Plant",
         desc: "In Tillinadz Stand Planter",
         price: 75
     },
     {
+        id: 2,
         name: "Aloe Plant Trio",
         desc: "In Mini Dolores Planter",
         price: 50
     },
     {
+        id: 3,
         name: "Aloe Vera",
         desc: "In Big Dolores Planter",
         price: 78
     },
     {
+        id: 4,
         name: "Aloe Vera",
         desc: "In Mini Quirk Planter",
         price: 59
     },
     {
+        id: 5,
         name: "Air Plant Trio",
         desc: "In Mini Dolores Planter",
         price: 90
@@ -73,9 +80,6 @@ function appendPlants(itemsHolder, className) {
 
         let img = document.createElement("img");
         img.classList.add(`image-${className}`);
-        img.addEventListener("click", function () {
-            openModalItem(className, block);
-        });
         if (plants[c].myReader) {
             img.src = plants[c].myReader.result;
         } else {
@@ -102,16 +106,10 @@ function appendPlants(itemsHolder, className) {
         spanName.appendChild(document.createTextNode(plants[c].name));
         spanName.classList.add(`name-${className}`);
 
-        // if(className === "tile"){
-        //     spanName.addEventListener("click", function () {
-        //         openModalItem(className, block);
-        //     });
-        // }
-
-        //titleBlock.appendChild(spanName);
 
         // color choosing thingy
         let spanColor;
+        let colorHolder; // used for storing color for the modalItem
         if (c === 0) {
             spanColor = document.createElement("span");
             spanColor.classList.add(`color-${className}`);
@@ -119,8 +117,10 @@ function appendPlants(itemsHolder, className) {
             redColor.classList.add("color-red");
             redColor.classList.add("color-circle");
             redColor.classList.add("selected");
+            colorHolder = "red";
             redColor.addEventListener("click", function() {
                 changeColor.call(redColor, "red");
+                colorHolder = "red";
             });
             spanColor.appendChild(redColor);
             let greenColor = document.createElement("div");
@@ -128,6 +128,7 @@ function appendPlants(itemsHolder, className) {
             greenColor.classList.add("color-circle");
             greenColor.addEventListener("click", function() {
                 changeColor.call(greenColor, "green");
+                colorHolder = "green";
             });
             spanColor.appendChild(greenColor);
             let yellowColor = document.createElement("div");
@@ -135,6 +136,7 @@ function appendPlants(itemsHolder, className) {
             yellowColor.classList.add("color-circle");
             yellowColor.addEventListener("click", function() {
                 changeColor.call(yellowColor, "yellow");
+                colorHolder = "yellow";
             });
             spanColor.appendChild(yellowColor);
             if (className === "tile") {
@@ -152,16 +154,18 @@ function appendPlants(itemsHolder, className) {
         spanPrice.appendChild(document.createTextNode(plants[c].price));
         spanPrice.classList.add(`price-${className}`);
 
+        let id = plants[c].id;
 
         if (className === "list" && c === 0) {
             titleBlock.appendChild(spanColor);
         }
         if(className === "tile"){
+
             spanName.addEventListener("click", function () {
-                openModalItem(className, block);
+                openModalItem(className, block, id, colorHolder);
             });
             spanDesc.addEventListener("click", function () {
-                openModalItem(className, block);
+                openModalItem(className, block, id, colorHolder);
             });
             titleBlock.appendChild(spanName);
             titleBlock.appendChild(spanDesc);
@@ -169,7 +173,7 @@ function appendPlants(itemsHolder, className) {
         } else {
             let titleHolder = document.createElement("div");
             titleHolder.addEventListener("click", function () {
-                openModalItem(className, block);
+                openModalItem(className, block, id, colorHolder);
             });
             titleHolder.classList.add("title-list-holder");
             titleHolder.appendChild(spanName);
@@ -177,6 +181,9 @@ function appendPlants(itemsHolder, className) {
             titleHolder.appendChild(spanPrice);
             titleBlock.appendChild(titleHolder);
         }
+        img.addEventListener("click", function () {
+            openModalItem(className, block, id, colorHolder);
+        });
 
     }
 
@@ -184,20 +191,23 @@ function appendPlants(itemsHolder, className) {
 
 }
 
-function changeColor(color) {
+function changeColor(color, modalColor) {
     let parent = this.parentElement;
     let children = parent.children;
     for (let i = 0; i < children.length; i++) {
         children[i].classList.remove("selected");
     }
     this.classList.add("selected");
-
-    let parentOfParentOfParent = this.parentElement.parentElement.parentElement;
     let imageElement;
-    if (parentOfParentOfParent.classList.contains("list")) {
-        imageElement = parentOfParentOfParent.getElementsByClassName("image-list");
+    if(!modalColor){
+        let parentOfParentOfParent = this.parentElement.parentElement.parentElement;
+        if (parentOfParentOfParent.classList.contains("list")) {
+            imageElement = parentOfParentOfParent.getElementsByClassName("image-list");
+        } else {
+            imageElement = parentOfParentOfParent.getElementsByClassName("image-tile");
+        }
     } else {
-        imageElement = parentOfParentOfParent.getElementsByClassName("image-tile");
+        imageElement = document.getElementsByClassName("modal-item--image");
     }
 
     imageElement[0].src = `img/colors/lul${color}.jpg`;
@@ -247,6 +257,7 @@ function modalAdd() {
     }
 
     plants.push({
+        id: plants[plants.length - 1].id + 1,
         name: name.value,
         desc: desc.value,
         price: price,
@@ -254,6 +265,7 @@ function modalAdd() {
     });
     closeModal();
     changeView();
+    console.log(plants);
 
 }
 
@@ -283,7 +295,7 @@ function loadMore() {
     }
 }
 
-function openModalItem(className, block) {
+function openModalItem(className, block, id, colorHolder) {
     document.getElementById("modal-window-item").style.display = "block";
 
     let nameHolder = document.getElementsByClassName("modal-item--name")[0];
@@ -297,6 +309,46 @@ function openModalItem(className, block) {
 
     let imageHolder = document.getElementsByClassName("modal-item--image")[0];
     imageHolder.src = block.getElementsByClassName(`image-${className}`)[0].src;
+
+    if(document.getElementsByClassName("color-modal")[0]){
+        document.getElementsByClassName("color-modal")[0].remove();
+    }
+
+    if(plants[id].colorChange){
+        let spanColor;
+        let block = document.getElementsByClassName("modal-item--right-side")[0];
+        spanColor = document.createElement("span");
+        spanColor.classList.add("color-modal");
+        let redColor = document.createElement("div");
+        redColor.classList.add("color-red");
+        redColor.classList.add("color-circle");
+        redColor.addEventListener("click", function() {
+            changeColor.call(redColor, "red", true);
+        });
+        spanColor.appendChild(redColor);
+        let greenColor = document.createElement("div");
+        greenColor.classList.add("color-green");
+        greenColor.classList.add("color-circle");
+        greenColor.addEventListener("click", function() {
+            changeColor.call(greenColor, "green", true);
+        });
+        spanColor.appendChild(greenColor);
+        let yellowColor = document.createElement("div");
+        yellowColor.classList.add("color-yellow");
+        yellowColor.classList.add("color-circle");
+        yellowColor.addEventListener("click", function() {
+            changeColor.call(yellowColor, "yellow", true);
+        });
+        spanColor.appendChild(yellowColor);
+        block.appendChild(spanColor);
+        if(colorHolder === "red") {
+            redColor.classList.add("selected");
+        } else if(colorHolder === "green"){
+            greenColor.classList.add("selected");
+        } else if(colorHolder === "yellow"){
+            yellowColor.classList.add("selected");
+        }
+    }
 
 
 }
@@ -312,6 +364,10 @@ document.getElementsByClassName("modal-add")[0].addEventListener("click", modalA
 document.getElementsByClassName("button-more")[0].addEventListener("click", loadMore);
 document.getElementById("enter-image").addEventListener("change", loadFile);
 document.getElementsByClassName("modal-item-close")[0].addEventListener("click", closeModalItem);
+
+
+
+
 
 window.onload = function() {
     changeView();
