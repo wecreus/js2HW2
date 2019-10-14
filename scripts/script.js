@@ -46,57 +46,74 @@ let bagList = [];
 let currentOpenedId = "none";
 let className = "tile";
 
-document.getElementsByClassName("view-tiles")[0].addEventListener("click", function () {
-        if(className !== "tile"){
+document
+    .getElementsByClassName("view-tiles")[0]
+    .addEventListener("click", function() {
+        if (className !== "tile") {
             className = "tile";
-            let temp =  document.getElementsByClassName("view-list")[0];
+            let temp = document.getElementsByClassName("view-list")[0];
             temp.classList.remove("selected-selector");
             let temp2 = document.getElementsByClassName("view-tiles")[0];
             temp2.classList.add("selected-selector");
             sort();
         }
-});
+    });
 
-document.getElementsByClassName("view-list")[0].addEventListener("click", function () {
-    if(className !== "list"){
-        className = "list";
-        let temp =  document.getElementsByClassName("view-tiles")[0];
-        temp.classList.remove("selected-selector");
-        let temp2 = document.getElementsByClassName("view-list")[0];
-        temp2.classList.add("selected-selector");
-        sort();
-    }
-});
+document
+    .getElementsByClassName("view-list")[0]
+    .addEventListener("click", function() {
+        if (className !== "list") {
+            className = "list";
+            let temp = document.getElementsByClassName("view-tiles")[0];
+            temp.classList.remove("selected-selector");
+            let temp2 = document.getElementsByClassName("view-list")[0];
+            temp2.classList.add("selected-selector");
+            sort();
+        }
+    });
 
-
-document.getElementsByClassName("button-open-modal")[0].addEventListener("click", openModal);
-document.getElementsByClassName("modal-close")[0].addEventListener("click", closeModal);
-document.getElementsByClassName("modal-add")[0].addEventListener("click", modalAdd);
-document.getElementsByClassName("button-more")[0].addEventListener("click", loadMore);
+document
+    .getElementsByClassName("button-open-modal")[0]
+    .addEventListener("click", openModal);
+document
+    .getElementsByClassName("modal-close")[0]
+    .addEventListener("click", closeModal);
+document
+    .getElementsByClassName("modal-add")[0]
+    .addEventListener("click", modalAdd);
+document
+    .getElementsByClassName("button-more")[0]
+    .addEventListener("click", loadMore);
 document.getElementById("enter-image").addEventListener("change", loadFile);
-document.getElementsByClassName("modal-item-close")[0].addEventListener("click", closeModalItem);
-document.getElementsByClassName("modal-item-quantity-input")[0].addEventListener("change", function() {
-    if(price === 0){
-        price = document.getElementsByClassName("modal-item--price")[0].textContent;
-        price = price.replace("$", "");
-        price = parseInt(price, 10);
-    }
-    if(this.value % 1 === 0) {
-        document.getElementsByClassName("modal-item--price")[0].textContent = "" + price * this.value;
-    }
-});
-document.getElementsByClassName("sort-type")[0].addEventListener("change", sort);
-document.getElementsByClassName("modal-item-add")[0].addEventListener("click", addToBag);
+document
+    .getElementsByClassName("modal-item-close")[0]
+    .addEventListener("click", closeModalItem);
+document
+    .getElementsByClassName("modal-item-quantity-input")[0]
+    .addEventListener("change", function() {
+        if (price === 0) {
+            price = document.getElementsByClassName("modal-item--price")[0]
+                .textContent;
+            price = price.replace("$", "");
+            price = parseInt(price, 10);
+        }
+        if (this.value % 1 === 0) {
+            document.getElementsByClassName("modal-item--price")[0].textContent =
+                "" + price * this.value;
+        }
+    });
+document
+    .getElementsByClassName("sort-type")[0]
+    .addEventListener("change", sort);
+document
+    .getElementsByClassName("modal-item-add")[0]
+    .addEventListener("click", addToBag);
 
 window.onload = function() {
     sort();
 };
 
-
 function changeView() {
-
-
-
     let itemsHolder = document.getElementById("Items-Holder");
 
     //clearing the div
@@ -118,7 +135,6 @@ function appendPlants(itemsHolder) {
         let block = document.createElement("div");
         block.classList.add(className);
         itemsHolder.appendChild(block);
-
 
         // image
         c = i;
@@ -156,7 +172,6 @@ function appendPlants(itemsHolder) {
         let spanName = document.createElement("span");
         spanName.appendChild(document.createTextNode(plants[c].name));
         spanName.classList.add(`name-${className}`);
-
 
         // color choosing thingy
         let spanColor;
@@ -210,12 +225,11 @@ function appendPlants(itemsHolder) {
         if (className === "list" && plants[c].colorChange) {
             titleBlock.appendChild(spanColor);
         }
-        if(className === "tile"){
-
-            spanName.addEventListener("click", function () {
+        if (className === "tile") {
+            spanName.addEventListener("click", function() {
                 openModalItem(className, block, id, colorHolder);
             });
-            spanDesc.addEventListener("click", function () {
+            spanDesc.addEventListener("click", function() {
                 openModalItem(className, block, id, colorHolder);
             });
             titleBlock.appendChild(spanName);
@@ -223,7 +237,7 @@ function appendPlants(itemsHolder) {
             titleBlock.appendChild(spanPrice);
         } else {
             let titleHolder = document.createElement("div");
-            titleHolder.addEventListener("click", function () {
+            titleHolder.addEventListener("click", function() {
                 openModalItem(className, block, id, colorHolder);
             });
             titleHolder.classList.add("title-list-holder");
@@ -232,12 +246,10 @@ function appendPlants(itemsHolder) {
             titleHolder.appendChild(spanPrice);
             titleBlock.appendChild(titleHolder);
         }
-        img.addEventListener("click", function () {
+        img.addEventListener("click", function() {
             openModalItem(className, block, id, colorHolder);
         });
-
     }
-
 }
 
 function changeColor(color, modalColor) {
@@ -249,13 +261,17 @@ function changeColor(color, modalColor) {
     }
 
     let imageElement;
-    if(!modalColor){
+    if (!modalColor) {
         this.classList.add("selected");
         let parentOfParentOfParent = this.parentElement.parentElement.parentElement;
         if (parentOfParentOfParent.classList.contains("list")) {
-            imageElement = parentOfParentOfParent.getElementsByClassName("image-list");
+            imageElement = parentOfParentOfParent.getElementsByClassName(
+                "image-list"
+            );
         } else {
-            imageElement = parentOfParentOfParent.getElementsByClassName("image-tile");
+            imageElement = parentOfParentOfParent.getElementsByClassName(
+                "image-tile"
+            );
         }
     } else {
         this.classList.add("selected-modal");
@@ -278,7 +294,6 @@ function openModal() {
 function closeModal() {
     let modalWindow = document.getElementById("modal-window");
     modalWindow.style.display = "none";
-
 }
 
 function modalAdd() {
@@ -316,7 +331,6 @@ function modalAdd() {
     });
     closeModal();
     sort();
-
 }
 
 function loadFile() {
@@ -349,30 +363,35 @@ function openModalItem(className, block, id, colorHolder) {
     document.getElementById("modal-window-item").style.display = "block";
     currentOpenedId = id;
     let nameHolder = document.getElementsByClassName("modal-item--name")[0];
-    nameHolder.textContent = block.getElementsByClassName(`name-${className}`)[0].textContent;
+    nameHolder.textContent = block.getElementsByClassName(
+        `name-${className}`
+    )[0].textContent;
 
     let descHolder = document.getElementsByClassName("modal-item--desc")[0];
-    descHolder.textContent = block.getElementsByClassName(`desc-${className}`)[0].textContent;
+    descHolder.textContent = block.getElementsByClassName(
+        `desc-${className}`
+    )[0].textContent;
 
     let priceHolder = document.getElementsByClassName("modal-item--price")[0];
-    priceHolder.textContent = block.getElementsByClassName(`price-${className}`)[0].textContent;
+    priceHolder.textContent = block.getElementsByClassName(
+        `price-${className}`
+    )[0].textContent;
 
     let imageHolder = document.getElementsByClassName("modal-item--image")[0];
     imageHolder.src = block.getElementsByClassName(`image-${className}`)[0].src;
 
-    if(document.getElementsByClassName("color-modal")[0]){
+    if (document.getElementsByClassName("color-modal")[0]) {
         document.getElementsByClassName("color-modal")[0].remove();
     }
 
     let myId;
-    for(let i = 0; i < plants.length; i++){
-        if(id === plants[i].id){
+    for (let i = 0; i < plants.length; i++) {
+        if (id === plants[i].id) {
             myId = plants[i];
         }
     }
 
-
-    if(myId.colorChange){
+    if (myId.colorChange) {
         let spanColor;
         spanColor = document.createElement("span");
         spanColor.classList.add("color-modal");
@@ -397,20 +416,20 @@ function openModalItem(className, block, id, colorHolder) {
             changeColor.call(yellowColor, "yellow", true);
         });
         spanColor.appendChild(yellowColor);
-        document.getElementsByClassName("modal-item--right-side")[0].appendChild(spanColor);
-        if(colorHolder === "red") {
+        document
+            .getElementsByClassName("modal-item--right-side")[0]
+            .appendChild(spanColor);
+        if (colorHolder === "red") {
             redColor.classList.add("selected-modal");
-        } else if(colorHolder === "green"){
+        } else if (colorHolder === "green") {
             greenColor.classList.add("selected-modal");
-        } else if(colorHolder === "yellow"){
+        } else if (colorHolder === "yellow") {
             yellowColor.classList.add("selected-modal");
         }
     }
-
-
 }
 
-function closeModalItem(){
+function closeModalItem() {
     let modalWindow = document.getElementById("modal-window-item");
     modalWindow.style.display = "none";
     price = 0;
@@ -418,10 +437,10 @@ function closeModalItem(){
     document.getElementsByClassName("modal-item-quantity-input")[0].value = 1;
 }
 
-function sort(){
-    if(localStorage.getItem("sPlants")){
-        if(plants){
-            if(plants.length > JSON.parse(localStorage.getItem("sPlants")).length){
+function sort() {
+    if (localStorage.getItem("sPlants")) {
+        if (plants) {
+            if (plants.length > JSON.parse(localStorage.getItem("sPlants")).length) {
                 localStorage.setItem("sPlants", JSON.stringify(plants));
             }
         } else {
@@ -432,28 +451,33 @@ function sort(){
         localStorage.setItem("sPlants", JSON.stringify(plants));
     }
 
-
-
-
     let sortType = document.getElementsByClassName("sort-type")[0].value;
-    if(sortType === "price_low"){
-        plants.sort(function(a, b){
+    if (sortType === "price_low") {
+        plants.sort(function(a, b) {
             return a.price - b.price;
         });
     } else if (sortType === "price_high") {
-        plants.sort(function(a, b){
+        plants.sort(function(a, b) {
             return b.price - a.price;
         });
-    } else if (sortType === "name_up"){
+    } else if (sortType === "name_up") {
         plants.sort(function(a, b) {
-            if(b.name.toLowerCase() < a.name.toLowerCase()) { return -1; }
-            if(b.name.toLowerCase() > a.name.toLowerCase()) { return 1; }
+            if (b.name.toLowerCase() < a.name.toLowerCase()) {
+                return -1;
+            }
+            if (b.name.toLowerCase() > a.name.toLowerCase()) {
+                return 1;
+            }
             return 0;
         });
     } else {
         plants.sort(function(a, b) {
-            if(b.name.toLowerCase() > a.name.toLowerCase()) { return -1; }
-            if(b.name.toLowerCase() < a.name.toLowerCase()) { return 1; }
+            if (b.name.toLowerCase() > a.name.toLowerCase()) {
+                return -1;
+            }
+            if (b.name.toLowerCase() < a.name.toLowerCase()) {
+                return 1;
+            }
             return 0;
         });
     }
@@ -462,26 +486,27 @@ function sort(){
 }
 
 function addToBag() {
-    let theValue = document.getElementsByClassName("modal-item-quantity-input")[0].value;
+    let theValue = document.getElementsByClassName("modal-item-quantity-input")[0]
+        .value;
     let color = "default";
-    if(!theValue){
+    if (!theValue) {
         return 0;
     }
 
-    if(theValue < 1){
+    if (theValue < 1) {
         return 0;
     }
 
-    if(theValue % 1 !== 0) {
+    if (theValue % 1 !== 0) {
         return 0;
     }
 
-    for(let i = 0; i < plants.length; i++){
-        if(currentOpenedId === plants[i].id && plants[i].colorChange){
+    for (let i = 0; i < plants.length; i++) {
+        if (currentOpenedId === plants[i].id && plants[i].colorChange) {
             let temp = document.getElementsByClassName("selected-modal")[0];
-            if(temp.classList.contains("color-red")){
+            if (temp.classList.contains("color-red")) {
                 color = "red";
-            } else if(temp.classList.contains("color-green")){
+            } else if (temp.classList.contains("color-green")) {
                 color = "green";
             } else {
                 color = "yellow";
@@ -489,8 +514,7 @@ function addToBag() {
         }
     }
 
-
-    if(localStorage.getItem("sBagList")){
+    if (localStorage.getItem("sBagList")) {
         bagList = JSON.parse(localStorage.getItem("sBagList"));
     }
     bagList.push({
@@ -504,14 +528,14 @@ function addToBag() {
     closeModalItem();
 }
 
-function updateBag(){
+function updateBag() {
     let temp = 0;
-    if(localStorage.getItem("sBagList")){
+    if (localStorage.getItem("sBagList")) {
         let anotherTemp = JSON.parse(localStorage.getItem("sBagList"));
-        for(let i = 0; i < anotherTemp.length; i++){
+        for (let i = 0; i < anotherTemp.length; i++) {
             temp += Number(anotherTemp[i].quantity);
         }
-        if(temp > 99){
+        if (temp > 99) {
             temp = "99+";
         }
     }
