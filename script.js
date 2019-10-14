@@ -1,16 +1,5 @@
 function changeView() {
-    if(localStorage.getItem("sPlants")){
-        if(plants){
-            if(plants.length > JSON.parse(localStorage.getItem("sPlants")).length){
-                localStorage.setItem("sPlants", JSON.stringify(plants));
-            }
-        } else {
-            plants = JSON.parse(localStorage.getItem("sPlants"));
-        }
-    } else {
-        plants = defaultPlants;
-        localStorage.setItem("sPlants", JSON.stringify(plants));
-    }
+
 
 
     let itemsHolder = document.getElementById("Items-Holder");
@@ -57,7 +46,7 @@ function appendPlants(itemsHolder, className) {
             if (plants[c].colorChange) {
                 img.src = "img/colors/lulred.jpg";
             } else {
-                img.src = "img/plant" + c + ".jpg";
+                img.src = "img/plant" + plants[c].id + ".jpg";
             }
         }
 
@@ -237,7 +226,7 @@ function modalAdd() {
         myReader: reader.result
     });
     closeModal();
-    changeView();
+    sort();
 
 }
 
@@ -259,7 +248,7 @@ function loadMore() {
 
         scroll(0, 0);
     }
-    changeView();
+    sort();
     if (quantity > 23) {
         quantity = -1;
         let button = document.getElementsByClassName("button-more")[0];
@@ -286,7 +275,15 @@ function openModalItem(className, block, id, colorHolder) {
         document.getElementsByClassName("color-modal")[0].remove();
     }
 
-    if(plants[id].colorChange){
+    let myId;
+    for(let i = 0; i < plants.length; i++){
+        if(id === plants[i].id){
+            myId = plants[i];
+        }
+    }
+
+
+    if(myId.colorChange){
         let spanColor;
         spanColor = document.createElement("span");
         spanColor.classList.add("color-modal");
@@ -330,6 +327,48 @@ function closeModalItem(){
     price = 0;
 
     document.getElementsByClassName("modal-item-quantity-input")[0].value = 1;
+}
+
+function sort(){
+    if(localStorage.getItem("sPlants")){
+        if(plants){
+            if(plants.length > JSON.parse(localStorage.getItem("sPlants")).length){
+                localStorage.setItem("sPlants", JSON.stringify(plants));
+            }
+        } else {
+            plants = JSON.parse(localStorage.getItem("sPlants"));
+        }
+    } else {
+        plants = defaultPlants;
+        localStorage.setItem("sPlants", JSON.stringify(plants));
+    }
+
+
+
+
+    let sortType = document.getElementsByClassName("sort-type")[0].value;
+    if(sortType === "price_low"){
+        plants.sort(function(a, b){
+            return a.price - b.price;
+        });
+    } else if (sortType === "price_high") {
+        plants.sort(function(a, b){
+            return b.price - a.price;
+        });
+    } else if (sortType === "name_up"){
+        plants.sort(function(a, b) {
+            if(b.name.toLowerCase() < a.name.toLowerCase()) { return -1; }
+            if(b.name.toLowerCase() > a.name.toLowerCase()) { return 1; }
+            return 0;
+        });
+    } else {
+        plants.sort(function(a, b) {
+            if(b.name.toLowerCase() > a.name.toLowerCase()) { return -1; }
+            if(b.name.toLowerCase() < a.name.toLowerCase()) { return 1; }
+            return 0;
+        });
+    }
+    changeView();
 }
 
 let defaultPlants = [
@@ -378,7 +417,7 @@ let plants;
 let price = 0;
 
 
-document.getElementById("view-type").addEventListener("change", changeView);
+document.getElementById("view-type").addEventListener("change", sort);
 document.getElementsByClassName("button-open-modal")[0].addEventListener("click", openModal);
 document.getElementsByClassName("modal-close")[0].addEventListener("click", closeModal);
 document.getElementsByClassName("modal-add")[0].addEventListener("click", modalAdd);
@@ -395,8 +434,9 @@ document.getElementsByClassName("modal-item-quantity-input")[0].addEventListener
        document.getElementsByClassName("modal-item--price")[0].textContent = "" + price * this.value;
    }
 });
+document.getElementsByClassName("sort-type")[0].addEventListener("change", sort);
 
 
 window.onload = function() {
-    changeView();
+    sort();
 };

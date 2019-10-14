@@ -33,6 +33,18 @@ body {
     float: right;
 }
 
+.middle-side {
+    display: inline-block;
+    margin: 13px 15px;
+}
+
+.sort-type {
+    width: 120px;
+    border-radius: 5px;
+    height: 23px;
+    margin-left: 20px;
+}
+
 #view-type {
     width: 100px;
     border-radius: 5px;
